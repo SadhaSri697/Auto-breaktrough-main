@@ -1,0 +1,282 @@
+/**
+ * Interactive HTML Visual Dashboard Generator.
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+
+export function generateHtmlDashboard(researchResult, outputPath = "breakthrough-dashboard.html") {
+  const { thesis, parsedThesis, verdict, finalVerdict, history, totalIterations, timestamp } = researchResult;
+
+  const isProved = verdict === "PROVED";
+  const isDisproved = verdict === "DISPROVED";
+  const isRedirected = verdict === "REDIRECTED";
+
+  const badgeColor = isProved ? "#10b981" : isDisproved ? "#ef4444" : isRedirected ? "#06b6d4" : "#f59e0b";
+  const badgeText = isProved ? "VERDICT: PROVED" : isDisproved ? "VERDICT: DISPROVED" : isRedirected ? "VERDICT: REDIRECTED" : "VERDICT: INCONCLUSIVE";
+
+  const allDiscoveries = [];
+  for (const h of history) {
+    for (const d of h.discoveries) {
+      if (!allDiscoveries.some(x => x.id === d.id)) allDiscoveries.push(d);
+    }
+  }
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Breakthrough — Research Verdict Dashboard</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 29, 47, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #818cf8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #06b6d4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.1) 0px, transparent 50%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container { max-width: 1040px; width: 100%; display: flex; flex-direction: column; gap: 1.75rem; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-badge {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #000;
+      font-weight: 800;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    .logo h1 { font-size: 1.35rem; font-weight: 700; color: #fff; }
+    .meta-time { color: var(--text-muted); font-size: 0.85rem; }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .verdict-banner {
+      border-left: 6px solid ${badgeColor};
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .verdict-tag {
+      background: ${badgeColor};
+      color: #000;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      display: inline-block;
+    }
+    .thesis-claim {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #f8fafc;
+      margin-top: 0.5rem;
+    }
+
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .stat-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-val { font-size: 1.4rem; font-weight: 700; color: #fff; margin-top: 0.25rem; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+    th { text-align: left; padding: 0.75rem; color: var(--text-muted); font-size: 0.85rem; border-bottom: 1px solid var(--card-border); }
+    td { padding: 0.75rem; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .discovery-card {
+      border: 1px solid rgba(217, 70, 239, 0.3);
+      background: rgba(217, 70, 239, 0.06);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 0.75rem;
+    }
+    .discovery-title {
+      color: #e879f9;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .badge-pill {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .badge-proved { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .badge-inconclusive { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .badge-disproved { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .badge-redirected { background: rgba(6, 182, 212, 0.2); color: #38bdf8; }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <span class="logo-badge">LAB</span>
+        <h1>Auto-Breakthrough Research Dashboard</h1>
+      </div>
+      <div class="meta-time">${new Date(timestamp).toLocaleString()}</div>
+    </header>
+
+    <div class="card verdict-banner">
+      <div>
+        <span class="verdict-tag">${badgeText}</span>
+        <div class="thesis-claim">"${thesis}"</div>
+      </div>
+      <div class="stat-box" style="min-width: 160px; text-align: center;">
+        <div class="stat-label">Confidence</div>
+        <div class="stat-val" style="color: ${badgeColor};">${Math.round((finalVerdict.confidence || 0.9) * 100)}%</div>
+      </div>
+    </div>
+
+    <div class="grid-stats">
+      <div class="stat-box">
+        <div class="stat-label">Success Bar</div>
+        <div class="stat-val">&gt;${parsedThesis.threshold}%</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Final Delta</div>
+        <div class="stat-val" style="color: ${finalVerdict.primaryMetric.delta >= 0 ? 'var(--success)' : 'var(--danger)'};">
+          ${finalVerdict.primaryMetric.delta >= 0 ? '+' : ''}${finalVerdict.primaryMetric.delta}%
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Research Cycles</div>
+        <div class="stat-val">${totalIterations}</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Empirical Baseline</div>
+        <div class="stat-val">${finalVerdict.primaryMetric.baseline ?? 'N/A'}%</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Empirical Trial History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cycle</th>
+            <th>Baseline</th>
+            <th>Observed</th>
+            <th>Delta</th>
+            <th>Significance</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${history.map(h => `
+            <tr>
+              <td>Cycle ${h.iteration}</td>
+              <td>${h.metrics.baseline ?? 'N/A'}%</td>
+              <td>${h.metrics.observed}%</td>
+              <td style="color: ${h.metrics.delta >= 0 ? 'var(--success)' : 'var(--danger)'};">
+                ${h.metrics.delta >= 0 ? '+' : ''}${h.metrics.delta}%
+              </td>
+              <td>${h.metrics.isStatisticallySignificant ? 'p &lt; 0.05' : 'p &ge; 0.05'}</td>
+              <td>
+                <span class="badge-pill badge-${h.verdictResult.verdict.toLowerCase()}">
+                  ${h.verdictResult.verdict}
+                </span>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    ${allDiscoveries.length > 0 ? `
+    <div class="card">
+      <h2 style="font-size: 1.1rem; color: #e879f9; margin-bottom: 0.5rem;">✦ Discovery Mode Findings</h2>
+      ${allDiscoveries.map(d => `
+        <div class="discovery-card">
+          <div class="discovery-title">
+            <span>[${d.name}]</span>
+            <span style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.8;">${d.type}</span>
+          </div>
+          <p style="color: #f1f5f9; font-size: 0.9rem; margin-bottom: 0.35rem;"><strong>Insight:</strong> ${d.insight}</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem;"><strong>Follow-up:</strong> ${d.followUp}</p>
+        </div>
+      `).join('')}
+    </div>
+    ` : ''}
+
+    <div class="card">
+      <h2 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Scientific Synthesis & Next Steps</h2>
+      <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">
+        ${finalVerdict.whatIsTrue || finalVerdict.reasoning}
+      </p>
+      <ol style="padding-left: 1.25rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">
+        ${(finalVerdict.nextSteps || []).map(s => `<li>${s}</li>`).join('')}
+      </ol>
+    </div>
+
+    <footer>
+      Auto-Breakthrough Scientific Research Engine • Falsifiability & Autonomous Iteration
+    </footer>
+  </div>
+</body>
+</html>`;
+
+  fs.writeFileSync(path.resolve(outputPath), html, "utf8");
+  return path.resolve(outputPath);
+}

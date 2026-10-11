@@ -1,0 +1,36 @@
+{
+  "name": "auto-breakthrough",
+  "version": "1.0.0",
+  "description": "Autonomous research skill & CLI that turns a thesis and an experiment into a verdict",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "bin": {
+    "auto-breakthrough": "./bin/auto-breakthrough.mjs"
+  },
+  "scripts": {
+    "start": "node ./bin/auto-breakthrough.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "node ./bin/auto-breakthrough.mjs run --example critique",
+    "demo:all": "node ./bin/auto-breakthrough.mjs examples --all"
+  },
+  "keywords": [
+    "ai",
+    "research",
+    "agent",
+    "thesis",
+    "experiment",
+    "verdict",
+    "falsifiability",
+    "scientific-method",
+    "autonomous-loop"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Jitesh <jitesh-ss>",
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^2.1.0"
+  }
+}
