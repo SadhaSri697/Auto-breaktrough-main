@@ -28,7 +28,11 @@
   "engines": {
     "node": ">=18"
   },
-  "author": "Jitesh <jitesh-ss>",
+  "author": "sadhasri697",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SadhaSri697/Auto-breaktrough-main.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "vitest": "^2.1.0"
