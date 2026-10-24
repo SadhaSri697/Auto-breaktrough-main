@@ -173,7 +173,10 @@ export function generateHtmlDashboard(researchResult, outputPath = "breakthrough
     <header>
       <div class="logo">
         <span class="logo-badge">LAB</span>
-        <h1>Auto-Breakthrough Research Dashboard</h1>
+        <div>
+          <h1>Auto-Breakthrough Research Dashboard</h1>
+          <div style="font-size: 0.8rem; color: #38bdf8; margin-top: 2px;">Developed by <strong>sadhasri697</strong> • <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" style="color: #94a3b8; text-decoration: none;" target="_blank">GitHub Repository</a></div>
+        </div>
       </div>
       <div class="meta-time">${new Date(timestamp).toLocaleString()}</div>
     </header>
@@ -271,7 +274,7 @@ export function generateHtmlDashboard(researchResult, outputPath = "breakthrough
     </div>
 
     <footer>
-      Auto-Breakthrough Scientific Research Engine • Falsifiability & Autonomous Iteration
+      Auto-Breakthrough Scientific Research Engine • Developed by <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" style="color: #38bdf8; text-decoration: none; font-weight: 600;" target="_blank">sadhasri697</a> • Falsifiability & Autonomous Iteration
     </footer>
   </div>
 </body>

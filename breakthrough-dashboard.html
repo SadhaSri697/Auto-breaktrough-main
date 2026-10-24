@@ -66,7 +66,7 @@
     }
 
     .verdict-banner {
-      border-left: 6px solid #06b6d4;
+      border-left: 6px solid #f59e0b;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -74,7 +74,7 @@
       gap: 1rem;
     }
     .verdict-tag {
-      background: #06b6d4;
+      background: #f59e0b;
       color: #000;
       font-weight: 800;
       font-size: 1.1rem;
@@ -149,31 +149,34 @@
     <header>
       <div class="logo">
         <span class="logo-badge">LAB</span>
-        <h1>Auto-Breakthrough Research Dashboard</h1>
+        <div>
+          <h1>Auto-Breakthrough Research Dashboard</h1>
+          <div style="font-size: 0.8rem; color: #38bdf8; margin-top: 2px;">Developed by <strong>sadhasri697</strong> • <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" style="color: #94a3b8; text-decoration: none;" target="_blank">GitHub Repository</a></div>
+        </div>
       </div>
-      <div class="meta-time">11/10/2026, 11:01:45 pm</div>
+      <div class="meta-time">10/24/2026, 9:35:36 PM</div>
     </header>
 
     <div class="card verdict-banner">
       <div>
-        <span class="verdict-tag">VERDICT: REDIRECTED</span>
-        <div class="thesis-claim">"Increasing model context window from 8K to 32K tokens will reduce factual errors on long-document question answering by >25%."</div>
+        <span class="verdict-tag">VERDICT: INCONCLUSIVE</span>
+        <div class="thesis-claim">"Adding self-critique improves accuracy by >10% over baseline."</div>
       </div>
       <div class="stat-box" style="min-width: 160px; text-align: center;">
         <div class="stat-label">Confidence</div>
-        <div class="stat-val" style="color: #06b6d4;">95%</div>
+        <div class="stat-val" style="color: #f59e0b;">65%</div>
       </div>
     </div>
 
     <div class="grid-stats">
       <div class="stat-box">
         <div class="stat-label">Success Bar</div>
-        <div class="stat-val">&gt;25%</div>
+        <div class="stat-val">&gt;10%</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">Final Delta</div>
         <div class="stat-val" style="color: var(--success);">
-          +2.6%
+          +9.9%
         </div>
       </div>
       <div class="stat-box">
@@ -182,7 +185,7 @@
       </div>
       <div class="stat-box">
         <div class="stat-label">Empirical Baseline</div>
-        <div class="stat-val">34%</div>
+        <div class="stat-val">71%</div>
       </div>
     </div>
 
@@ -203,15 +206,15 @@
           
             <tr>
               <td>Cycle 1</td>
-              <td>34%</td>
-              <td>33.1%</td>
+              <td>71%</td>
+              <td>78%</td>
               <td style="color: var(--success);">
-                +2.6%
+                +9.9%
               </td>
               <td>p &lt; 0.05</td>
               <td>
-                <span class="badge-pill badge-redirected">
-                  REDIRECTED
+                <span class="badge-pill badge-inconclusive">
+                  INCONCLUSIVE
                 </span>
               </td>
             </tr>
@@ -226,11 +229,11 @@
       
         <div class="discovery-card">
           <div class="discovery-title">
-            <span>[Context Window vs Utilization Dissociation]</span>
-            <span style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.8;">pattern_break</span>
+            <span>[Epistemic Uncertainty Shift]</span>
+            <span style="font-size: 0.75rem; text-transform: uppercase; opacity: 0.8;">side_effect</span>
           </div>
-          <p style="color: #f1f5f9; font-size: 0.9rem; margin-bottom: 0.35rem;"><strong>Insight:</strong> Expanding raw token window (8K to 32K) produces negligible gains (3%). Errors stem from middle-document attention decay, not capacity limits.</p>
-          <p style="color: var(--text-muted); font-size: 0.85rem;"><strong>Follow-up:</strong> Test architectural structured memory routing rather than naive context expansion.</p>
+          <p style="color: #f1f5f9; font-size: 0.9rem; margin-bottom: 0.35rem;"><strong>Insight:</strong> System shifts error mode from confident falsehoods to explicit uncertainty ('I do not know'), fundamentally improving safety.</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem;"><strong>Follow-up:</strong> Measure human-rater calibration and safety satisfaction on borderline queries.</p>
         </div>
       
     </div>
@@ -239,15 +242,15 @@
     <div class="card">
       <h2 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Scientific Synthesis & Next Steps</h2>
       <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">
-        Performance bottlenecks are governed by representation utilization rather than raw parameter or context capacity.
+        Observed delta (9.9%) shows a positive trend but remains below the target threshold (10%).
       </p>
       <ol style="padding-left: 1.25rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">
-        <li>Abandon naive context expansion experiments.</li><li>Formulate and test the new redirected thesis with structured routing.</li><li>Validate on document benchmarks with varied needle-in-haystack positions.</li>
+        <li>Iterate: Increase critique / verification passes to observe cumulative gain.</li>
       </ol>
     </div>
 
     <footer>
-      Auto-Breakthrough Scientific Research Engine • Falsifiability & Autonomous Iteration
+      Auto-Breakthrough Scientific Research Engine • Developed by <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" style="color: #38bdf8; text-decoration: none; font-weight: 600;" target="_blank">sadhasri697</a> • Falsifiability & Autonomous Iteration
     </footer>
   </div>
 </body>

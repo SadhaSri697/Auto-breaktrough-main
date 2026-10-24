@@ -1,6 +1,8 @@
 # Auto-Breakthrough
 
-**An autonomous research skill that turns a thesis and an experiment into a verdict.**
+**An autonomous research skill and web studio that turns a thesis and an experiment into a verdict.**
+
+Developed by **[sadhasri697](https://github.com/SadhaSri697)** • [GitHub Repository](https://github.com/SadhaSri697/Auto-breaktrough-main)
 
 Given a falsifiable claim and a testable procedure, this skill drives an LLM agent through a structured research loop — designing, executing, analyzing, and iterating — until the thesis is proved, disproved, or refined into something sharper.
 
@@ -23,13 +25,27 @@ Given a falsifiable claim and a testable procedure, this skill drives an LLM age
 13. [Limitations and Boundaries](#limitations-and-boundaries)
 14. [Integration Guide](#integration-guide)
 15. [Design Principles](#design-principles)
-16. [Quick Start & CLI Execution](#quick-start--cli-execution)
+16. [Quick Start & Execution](#quick-start--execution)
+17. [Author & Repository](#author--repository)
 
 ---
 
-## Quick Start & CLI Execution
+## Quick Start & Execution
 
-Run the autonomous research loop directly using the Node.js CLI:
+### 1. Launch Full-Stack Web Studio (Frontend + Backend)
+
+Run both the REST API backend server and interactive visual frontend:
+
+```bash
+# Start backend server & frontend Web UI Studio:
+npm start
+# or:
+node src/server.mjs
+```
+
+Open your browser to: **`http://localhost:3000`**
+
+### 2. Run via Node.js CLI:
 
 ```bash
 # Run interactive research interview:
@@ -636,6 +652,14 @@ Auto-Breakthrough is a research skill for LLM agents. Given a thesis and an expe
 8. **Documents** everything for future reference
 
 The goal is not to confirm what you already believe. The goal is to find out what's actually true — and sometimes, that's more surprising than you expected.
+
+---
+
+## Author & Repository
+
+- **Developer / Author**: [sadhasri697](https://github.com/SadhaSri697)
+- **Repository**: [https://github.com/SadhaSri697/Auto-breaktrough-main](https://github.com/SadhaSri697/Auto-breaktrough-main)
+- **License**: MIT
 
 ---
 

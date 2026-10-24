@@ -8,6 +8,7 @@ export function printBanner() {
   console.log(`
 ${c.cyan("╔═══════════════════════════════════════════════════════════════════════════════╗")}
 ${c.cyan("║")}   ${c.bold(c.white("AUTO-BREAKTHROUGH"))}  ${c.dim("— Autonomous Research Loop & Scientific Verdict Engine")}   ${c.cyan("║")}
+${c.cyan("║")}   ${c.dim("Author:")} ${c.bold(c.yellow("sadhasri697"))}  ${c.dim("• Repo:")} ${c.cyan("https://github.com/SadhaSri697/Auto-breaktrough-main")}  ${c.cyan("║")}
 ${c.cyan("║")}   ${c.dim("THESIS ➔ DESIGN EXPERIMENT ➔ EXECUTE ➔ ANALYZE ➔ VERDICT ➔ ITERATE")}   ${c.cyan("║")}
 ${c.cyan("╚═══════════════════════════════════════════════════════════════════════════════╝")}
 `);

@@ -79,7 +79,7 @@ ${finalVerdict.redirectedThesis ? `### 🧭 Sharpened / Redirected Thesis\n**New
     md += `1. ${step}\n`;
   }
 
-  md += `\n---\n*Report generated autonomously by [Auto-Breakthrough](https://github.com/SadhaSri697/Auto-breaktrough-main).*`;
+  md += `\n---\n*Report generated autonomously by [Auto-Breakthrough](https://github.com/SadhaSri697/Auto-breaktrough-main) • Developed by sadhasri697.*`;
 
   fs.writeFileSync(path.resolve(outputPath), md, "utf8");
   return path.resolve(outputPath);

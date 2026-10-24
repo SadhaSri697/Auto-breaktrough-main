@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Breakthrough Studio — by sadhasri697</title>
+  <meta name="description" content="Autonomous Research Loop & Scientific Verdict Studio developed by sadhasri697. Turns a thesis and an experiment into an empirical verdict.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="noise-overlay"></div>
+  
+  <div class="app-layout">
+    <!-- Top Navigation Bar -->
+    <header class="top-header">
+      <div class="brand-area">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-wrap">
+            <h1 class="brand-title">Auto-Breakthrough</h1>
+            <span class="studio-pill">STUDIO</span>
+          </div>
+          <p class="brand-subtitle">Autonomous Research Loop & Scientific Verdict Engine</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="author-badge">
+          <span class="author-label">Author:</span>
+          <span class="author-name">sadhasri697</span>
+        </div>
+
+        <div class="status-indicator" id="server-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Backend Connecting...</span>
+        </div>
+
+        <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" target="_blank" rel="noopener noreferrer" class="github-btn" id="github-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="main-content">
+      <!-- Section: Presets & Research Mode Selection -->
+      <section class="section-container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">1. Canonical Research Presets</h2>
+            <p class="section-desc">Select an empirical case study or build your own custom hypothesis</p>
+          </div>
+          <div class="tabs-nav">
+            <button class="tab-btn active" id="tab-single" onclick="switchResearchTab('single')">Single Thesis Loop</button>
+            <button class="tab-btn" id="tab-multi" onclick="switchResearchTab('multi')">Multi-Thesis Graph</button>
+          </div>
+        </div>
+
+        <div class="preset-grid" id="preset-grid">
+          <div class="preset-card active" data-preset="critique" onclick="selectPreset('critique')">
+            <div class="preset-badge proved">Example 1 • Proof</div>
+            <h3 class="preset-title">Self-Critique Proof</h3>
+            <p class="preset-desc">Adding self-critique reduces trivia factual errors by >20% through autonomous 3-cycle iteration.</p>
+            <div class="preset-meta">
+              <span>Goal: >20% Delta</span>
+              <span>Cycles: 3</span>
+            </div>
+          </div>
+
+          <div class="preset-card" data-preset="finetune" onclick="selectPreset('finetune')">
+            <div class="preset-badge disproved">Example 2 • Disproof</div>
+            <h3 class="preset-title">ARC-AGI Disproof</h3>
+            <p class="preset-desc">Fine-tuning on synthetic reasoning traces regresses performance on ARC-AGI benchmark.</p>
+            <div class="preset-meta">
+              <span>Goal: >15% Delta</span>
+              <span>Outcome: -18.8%</span>
+            </div>
+          </div>
+
+          <div class="preset-card" data-preset="context" onclick="selectPreset('context')">
+            <div class="preset-badge redirected">Example 3 • Redirection</div>
+            <h3 class="preset-title">Context Window Redirection</h3>
+            <p class="preset-desc">Scaling context from 8K to 32K fails; redirects hypothesis to structured representation retrieval.</p>
+            <div class="preset-meta">
+              <span>Shift: Capacity → Utilization</span>
+            </div>
+          </div>
+
+          <div class="preset-card" data-preset="multi" onclick="selectPreset('multi')">
+            <div class="preset-badge multi">Example 4 • DAG Pipeline</div>
+            <h3 class="preset-title">Multi-Thesis Reasoning</h3>
+            <p class="preset-desc">Chains Planning (Proved) ➔ Verification (Proved) ➔ Memory (Disproved) to halt pipeline.</p>
+            <div class="preset-meta">
+              <span>4 Dependent Hypotheses</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Single Thesis Runner Panel -->
+      <section class="section-container" id="panel-single">
+        <div class="card research-form-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Research Thesis Specification
+            </h2>
+            <div class="form-badge">Falsifiable Protocol</div>
+          </div>
+
+          <form id="research-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+              <label for="input-thesis" class="form-label">
+                Falsifiable Thesis Claim:
+                <span class="label-hint">Must state a precise, measurable boundary that can be proved or disproved.</span>
+              </label>
+              <textarea id="input-thesis" class="form-textarea" rows="2" required placeholder="e.g. Adding a self-critique step reduces factual errors by >20% on trivia question answering, compared to no critique step."></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="input-experiment" class="form-label">
+                  Experimental Procedure:
+                  <span class="label-hint">Empirical trials, sample size, or evaluation dataset</span>
+                </label>
+                <textarea id="input-experiment" class="form-textarea" rows="2" placeholder="e.g. Run 1000 trivia questions comparing initial answers against critique-corrected answers with constraint verification."></textarea>
+              </div>
+
+              <div class="form-group flex-1">
+                <label for="input-baseline" class="form-label">
+                  Baseline Condition:
+                  <span class="label-hint">Comparison benchmark or existing baseline</span>
+                </label>
+                <textarea id="input-baseline" class="form-textarea" rows="2" placeholder="e.g. Single-pass zero-shot model answers with no critique loop."></textarea>
+              </div>
+            </div>
+
+            <div class="form-controls">
+              <div class="controls-left">
+                <label class="toggle-control">
+                  <input type="checkbox" id="toggle-iterate" checked>
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-text">Autonomous Multi-Cycle Iteration on Inconclusive Results</span>
+                </label>
+              </div>
+
+              <div class="controls-right">
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Defaults</button>
+                <button type="submit" class="btn btn-primary" id="btn-run-loop">
+                  <span class="btn-spinner" id="run-spinner"></span>
+                  <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Launch Research Loop</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Section: Multi-Thesis Graph Panel (Initially Hidden) -->
+      <section class="section-container hidden" id="panel-multi">
+        <div class="card research-form-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Multi-Thesis Dependency Graph</h2>
+              <p class="card-subtitle">Autonomous execution of chained, dependent hypotheses with fail-fast branching</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="btn-run-multi" onclick="launchMultiThesis()">
+              <span class="btn-spinner" id="multi-spinner"></span>
+              <span>Execute Full DAG Graph</span>
+            </button>
+          </div>
+
+          <div class="graph-visualizer" id="multi-graph-view">
+            <div class="dag-node" id="node-T1">
+              <div class="dag-header">
+                <span class="dag-id">Node T1</span>
+                <span class="dag-status status-pending">Pending</span>
+              </div>
+              <h4 class="dag-title">Planning Module</h4>
+              <p class="dag-claim">Improves score by >10% over baseline</p>
+            </div>
+            
+            <div class="dag-connector">➔</div>
+
+            <div class="dag-node" id="node-T2">
+              <div class="dag-header">
+                <span class="dag-id">Node T2</span>
+                <span class="dag-status status-pending">Pending</span>
+              </div>
+              <h4 class="dag-title">Verification Module</h4>
+              <p class="dag-claim">Improves score by >10% over baseline</p>
+            </div>
+
+            <div class="dag-connector">➔</div>
+
+            <div class="dag-node" id="node-T3">
+              <div class="dag-header">
+                <span class="dag-id">Node T3</span>
+                <span class="dag-status status-pending">Pending</span>
+              </div>
+              <h4 class="dag-title">Memory Module</h4>
+              <p class="dag-claim">Improves score by >10% over baseline</p>
+            </div>
+
+            <div class="dag-connector">➔</div>
+
+            <div class="dag-node dag-composite" id="node-T4">
+              <div class="dag-header">
+                <span class="dag-id">Node T4</span>
+                <span class="dag-status status-pending">Pending</span>
+              </div>
+              <h4 class="dag-title">Composite System</h4>
+              <p class="dag-claim">Integrated planning + verification + memory outperforms by >25%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Research Execution Live Telemetry & Stepper -->
+      <section class="section-container hidden" id="section-execution">
+        <div class="card telemetry-card">
+          <div class="telemetry-header">
+            <div>
+              <h3 class="telemetry-title">Autonomous Execution Telemetry</h3>
+              <p class="telemetry-subtitle" id="telemetry-status-text">Processing research stages...</p>
+            </div>
+            <div class="stage-pills" id="stage-indicators">
+              <div class="stage-pill" id="stage-1">1. Parse</div>
+              <div class="stage-pill" id="stage-2">2. Design</div>
+              <div class="stage-pill" id="stage-3">3. Execute</div>
+              <div class="stage-pill" id="stage-4">4. Analyze</div>
+              <div class="stage-pill" id="stage-5">5. Verdict</div>
+              <div class="stage-pill" id="stage-6">6. Iterate</div>
+            </div>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-bar" id="exec-progress-bar"></div>
+          </div>
+
+          <div class="terminal-box" id="terminal-stream">
+            <div class="terminal-line dim">// Initializing Auto-Breakthrough Research Loop...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Verdict & Scientific Analysis Results -->
+      <section class="section-container hidden" id="section-results">
+        <!-- Big Hero Verdict Banner -->
+        <div class="card verdict-hero-card" id="verdict-hero">
+          <div class="verdict-banner-inner">
+            <div class="verdict-primary-col">
+              <div class="verdict-pill-wrap">
+                <span class="verdict-badge" id="result-verdict-badge">VERDICT: PROVED</span>
+                <span class="confidence-tag" id="result-confidence">Confidence: 96%</span>
+                <span class="cycles-tag" id="result-cycles">3 Research Cycles</span>
+              </div>
+              <h2 class="verdict-thesis-title" id="result-thesis-text">Adding a self-critique step reduces factual errors by >20%...</h2>
+              <p class="verdict-reasoning" id="result-reasoning-text">Initial trials fell short (+9.9%). Autonomous escalation to constraint verification catalyzed a +21.2% reduction in factual errors.</p>
+            </div>
+
+            <div class="verdict-stat-grid">
+              <div class="hero-stat-box">
+                <span class="stat-caption">Observed Mean</span>
+                <span class="stat-number highlight" id="result-stat-observed">86.1%</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="stat-caption">Baseline Mean</span>
+                <span class="stat-number" id="result-stat-baseline">71.0%</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="stat-caption">Net Delta</span>
+                <span class="stat-number delta-positive" id="result-stat-delta">+21.2%</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="stat-caption">Significance</span>
+                <span class="stat-number sig" id="result-stat-pvalue">p &lt; 0.05</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empirical Trial History Table & Discovery Cards -->
+        <div class="results-columns">
+          <!-- Left Column: Trial Cycles & Next Steps -->
+          <div class="results-col flex-3">
+            <div class="card">
+              <h3 class="card-title">Empirical Trial Cycles</h3>
+              <div class="table-responsive">
+                <table class="data-table" id="trials-table">
+                  <thead>
+                    <tr>
+                      <th>Cycle</th>
+                      <th>Baseline</th>
+                      <th>Observed</th>
+                      <th>Delta</th>
+                      <th>p-value</th>
+                      <th>Verdict</th>
+                    </tr>
+                  </thead>
+                  <tbody id="trials-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card mt-4">
+              <h3 class="card-title">Scientific Synthesis & Next Steps</h3>
+              <p class="synthesis-text" id="result-what-is-true">Loading synthesis...</p>
+              <h4 class="subhead mt-3">Recommended Protocol Next Steps:</h4>
+              <ol class="next-steps-list" id="result-next-steps">
+                <!-- Populated dynamically -->
+              </ol>
+            </div>
+          </div>
+
+          <!-- Right Column: Discoveries & Artifact Exports -->
+          <div class="results-col flex-2">
+            <div class="card discovery-container-card" id="discovery-panel">
+              <div class="card-header">
+                <h3 class="card-title text-magenta">✦ Discovery Mode Findings</h3>
+                <span class="mini-badge">Serendipity Scanner</span>
+              </div>
+              <div id="discoveries-list" class="discoveries-list">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <div class="card mt-4">
+              <h3 class="card-title">Artifact Reports</h3>
+              <p class="text-dim text-sm">Download or open auto-generated artifacts for this verdict:</p>
+              <div class="export-actions">
+                <a href="/breakthrough-dashboard.html" target="_blank" class="btn btn-secondary flex-1" id="btn-view-dashboard">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                  <span>Open HTML Dashboard</span>
+                </a>
+                <button type="button" class="btn btn-secondary flex-1" onclick="viewMarkdownReportModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <span>Markdown Report</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal for Markdown View -->
+    <div class="modal-overlay hidden" id="markdown-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 class="modal-title">breakthrough-report.md</h3>
+          <div class="modal-btns">
+            <button class="btn btn-sm btn-secondary" onclick="copyMarkdownText()">Copy Markdown</button>
+            <button class="btn btn-sm btn-secondary" onclick="closeMarkdownModal()">✕ Close</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <pre id="markdown-content">Loading markdown...</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <strong>Auto-Breakthrough</strong> • Autonomous Scientific Research Engine & Full-Stack Web Studio
+      </div>
+      <div class="footer-right">
+        Developed by <a href="https://github.com/SadhaSri697/Auto-breaktrough-main" target="_blank" rel="noopener noreferrer" class="footer-author-link">sadhasri697</a> • Released under MIT License
+      </div>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
